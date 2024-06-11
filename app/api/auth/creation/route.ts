@@ -10,7 +10,7 @@ export async function GET() {
   const user = await getUser();
 
   if (!user || user === null || !user.id) {
-    throw new Error("Smoething went wrong, i am srorry....");
+    throw new Error("Something went wrong, i am sorry....");
   }
 
   let dbUser = await prisma.user.findUnique({
@@ -32,5 +32,5 @@ export async function GET() {
     });
   }
 
-  return NextResponse.redirect("https://airbnb-yt-peach.vercel.app");
+  return NextResponse.redirect("https://airbnb-yt-sable.vercel.app");
 }
