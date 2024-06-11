@@ -3,6 +3,7 @@
 import prisma from "@/app/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { NextResponse } from "next/server";
+import { unstable_noStore as noStore } from "next/cache";
 
 export async function GET() {
   /* 1. Fetch user */
@@ -37,5 +38,5 @@ export async function GET() {
   }
 
   /* 5. Then redirect the user to the homepage */
-  return NextResponse.redirect("http://localhost:3000");
+  return NextResponse.redirect("http://localhost:3000/");
 }
