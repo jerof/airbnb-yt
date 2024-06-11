@@ -1,28 +1,23 @@
-/* Creating a route handler */
-
-import prisma from "@/app/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import prisma from "@/app/lib/db";
 import { NextResponse } from "next/server";
 import { unstable_noStore as noStore } from "next/cache";
 
 export async function GET() {
-  /* 1. Fetch user */
+  noStore();
   const { getUser } = getKindeServerSession();
+
   const user = await getUser();
 
-  /* 2. If no user found, then throw error */
   if (!user || user === null || !user.id) {
-    throw new Error("Something went wrong. I am sorry...");
+    throw new Error("Smoething went wrong, i am srorry....");
   }
 
-  /* 3. If user is found, then fetch the user from the database */
   let dbUser = await prisma.user.findUnique({
     where: {
       id: user.id,
     },
   });
-
-  /* 4. If no db user is NotFoundBoundary, then create a db user */
 
   if (!dbUser) {
     dbUser = await prisma.user.create({
@@ -37,6 +32,5 @@ export async function GET() {
     });
   }
 
-  /* 5. Then redirect the user to the homepage */
-  return NextResponse.redirect("http://localhost:3000/");
+  return NextResponse.redirect("https://airbnb-yt-peach.vercel.app");
 }
